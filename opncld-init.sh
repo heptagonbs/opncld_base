@@ -28,8 +28,12 @@ echo y | apt install docker-ce docker-ce-cli containerd.io
 
 # Docker post installation
 groupadd -f docker
-useradd -mU -d /home/opncld opncld
-usermod -aG docker opncld
+OPNCLD_EXISTS=$(getent passwd opncld)
+if [ -z $OPNCLD_EXISTS ]; then
+do
+	useradd -mU -d /home/opncld opncld
+	usermod -aG docker opncld
+fi
 newgrp docker 
 
 # Configure Docker to start on boot
