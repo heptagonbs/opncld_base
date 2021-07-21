@@ -30,7 +30,6 @@ echo y | apt install docker-ce docker-ce-cli containerd.io
 groupadd -f docker
 OPNCLD_EXISTS=$(getent passwd opncld)
 if [ -z $OPNCLD_EXISTS ]; then
-do
 	useradd -mU -d /home/opncld opncld
 	usermod -aG docker opncld
 fi
