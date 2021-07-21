@@ -8,11 +8,11 @@ echo y | apt upgrade
 ### Install Docker & Docker Compose
 # Update the apt package index and install packages to allow apt to use a repository over HTTPS
 echo y | apt install \
-	apt-transport-https \
-	ca-certificates \
-	curl \
-	gnupg \
-	lsb-release
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg \
+        lsb-release
 
 # Add Docker’s official GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --yes --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -30,14 +30,13 @@ echo y | apt install docker-ce docker-ce-cli containerd.io
 groupadd -f docker
 OPNCLD_EXISTS=$(getent passwd opncld)
 if [ -z $OPNCLD_EXISTS ]; then
-	useradd -mU -d /home/opncld opncld
-	usermod -aG docker opncld
+        useradd -mU -d /home/opncld opncld
+        usermod -aG docker opncld
 fi
-newgrp docker 
 
 # Configure Docker to start on boot
-systemctl enable docker.service
-systemctl enable containerd.service
+systemctl enable docker
+systemctl enable containerd
 
 # Install docker-compose
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -45,4 +44,7 @@ chmod +x /usr/local/bin/docker-compose
 sudo curl \
     -L https://raw.githubusercontent.com/docker/compose/1.29.2/contrib/completion/bash/docker-compose \
     -o /etc/bash_completion.d/docker-compose
+
+# Needs to run last as apparently it stops script execution - nothing runs after it
+newgrp docker
 ### END OF Docker installation
