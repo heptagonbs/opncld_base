@@ -27,7 +27,7 @@ apt update
 echo y | apt install docker-ce docker-ce-cli containerd.io
 
 # Docker post installation
-groupadd docker
+groupadd -f docker
 useradd -mU -d /home/opncld opncld
 usermod -aG docker opncld
 newgrp docker 
