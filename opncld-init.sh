@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 ### Ubuntu updates
 apt update
@@ -28,11 +28,6 @@ echo y | apt install docker-ce docker-ce-cli containerd.io
 
 # Docker post installation
 groupadd -f docker
-OPNCLD_EXISTS=$(getent passwd opncld)
-if [ -z $OPNCLD_EXISTS ]; then
-        useradd -mU -d /home/opncld opncld
-        usermod -aG docker opncld
-fi
 
 # Configure Docker to start on boot
 systemctl enable docker
@@ -45,6 +40,6 @@ sudo curl \
     -L https://raw.githubusercontent.com/docker/compose/1.29.2/contrib/completion/bash/docker-compose \
     -o /etc/bash_completion.d/docker-compose
 
-# Needs to run last as apparently it stops script execution - nothing runs after it
-newgrp docker
+# Refresh the settings
+reboot
 ### END OF Docker installation

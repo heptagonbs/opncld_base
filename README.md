@@ -1,2 +1,2 @@
 # opncld_base
-Server setup for docker-compose projects
+Server setup for projects based on docker & docker-compose
